@@ -13,9 +13,10 @@ ns-xids/
 │   ├── explainability/      explanation formatting
 │   ├── risk_scoring/        risk score calculation
 │   └── database/            SQLAlchemy models, SQLite
+├── docs                     Documentation
 ├── frontend/                dashboard (Overview, Live, Alerts, Explainability, Analytics)
 ├── models/                  LOCKED model artifacts (see models/README.md)
-├── datasets/                raw/processed training data
+├── scripts/                 Demo traffic generation script
 ├── training/                train_ann_model.ipynb (offline training path)
 ├── rules/                   YAML/JSON symbolic rule definitions
 ├── tests/                   unit tests per module
