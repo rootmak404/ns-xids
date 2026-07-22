@@ -59,11 +59,3 @@ python scripts/replay_pcap_to_api.py path/to/capture.pcap
 Then in the dashboard: Live Monitoring → mode "Live capture" → enter your
 interface name (`en0` on macOS, `eth0` on most Linux) → Start.
 
-**Verified working end-to-end on a real machine**, including a real bug
-found and fixed during that testing: the symbolic layer was correctly
-detecting scan-shaped traffic and reducing confidence even when the ANN
-called it BENIGN, but the human-readable explanation didn't say why for
-BENIGN predictions specifically (conflicting rules weren't being persisted
-or mentioned in the reasoning text). Both are now fixed — see
-`backend/explainability/explainer.py` and the `conflicting_rules_json`
-column in `backend/database/models.py`.
