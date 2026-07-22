@@ -1,0 +1,30 @@
+
+
+rules:
+  - id: R_DDOS_01
+    class: DDoS
+    description: "Very high packet rate combined with short flow duration"
+    condition: "features['Flow Packets/s'] > 5000 and features['Flow Duration'] < 1000000"
+    weight: 0.35
+    evidence_text: "an unusually high packet rate ({Flow Packets/s:.0f} packets/sec) over a very short flow duration"
+
+  - id: R_DDOS_02
+    class: DDoS
+    description: "High backward packet rate indicating a flooded target responding"
+    condition: "features['Bwd Packets/s'] > 3000"
+    weight: 0.25
+    evidence_text: "the destination generating an abnormally high response packet rate ({Bwd Packets/s:.0f} packets/sec)"
+
+  - id: R_DDOS_03
+    class: DDoS
+    description: "Large volume of forward packets in a single flow"
+    condition: "features['Total Fwd Packets'] > 50"
+    weight: 0.2
+    evidence_text: "a large number of packets ({Total Fwd Packets:.0f}) sent within one flow"
+
+  - id: R_DDOS_04
+    class: DDoS
+    description: "Multiple distinct sources targeting the same destination in the monitoring window (requires monitoring-layer aggregation)"
+    condition: "context is not None and context.get('distinct_sources_to_dst', 0) > 20"
+    weight: 0.4
+    evidence_text: "{distinct_sources_to_dst} distinct source addresses contacting the same destination within the monitoring window"

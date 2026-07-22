@@ -1,0 +1,30 @@
+
+
+rules:
+  - id: R_PORTSCAN_01
+    class: PortScan
+    description: "Very short flow carrying almost no packets, consistent with a probe"
+    condition: "features['Total Fwd Packets'] <= 2 and features['Flow Duration'] < 50000"
+    weight: 0.3
+    evidence_text: "a very short-lived flow ({Flow Duration:.0f} microsec) carrying only {Total Fwd Packets:.0f} forward packet(s)"
+
+  - id: R_PORTSCAN_02
+    class: PortScan
+    description: "Minimal payload with small initial TCP window, typical of scan probes"
+    condition: "features['Init_Win_bytes_forward'] < 500 and features['Total Length of Fwd Packets'] < 10"
+    weight: 0.25
+    evidence_text: "a minimal TCP window ({Init_Win_bytes_forward:.0f} bytes) and near-empty payload ({Total Length of Fwd Packets:.0f} bytes)"
+
+  - id: R_PORTSCAN_03
+    class: PortScan
+    description: "Connection to a non-standard / high-numbered port"
+    condition: "features['Destination Port'] > 1024"
+    weight: 0.1
+    evidence_text: "a connection attempt to a non-standard port ({Destination Port:.0f})"
+
+  - id: R_PORTSCAN_04
+    class: PortScan
+    description: "Same source contacting many distinct destination ports in the monitoring window (requires monitoring-layer aggregation)"
+    condition: "context is not None and context.get('distinct_ports_from_src', 0) > 15"
+    weight: 0.4
+    evidence_text: "the source contacting {distinct_ports_from_src} distinct destination ports within the monitoring window"

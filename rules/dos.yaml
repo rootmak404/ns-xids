@@ -1,0 +1,44 @@
+
+
+rules:
+  - id: R_DOS_01
+    class: DoS_Attack
+    description: "High byte throughput sustained over a short flow"
+    condition: "features['Flow Bytes/s'] > 100000 and features['Flow Duration'] < 5000000"
+    weight: 0.3
+    evidence_text: "sustained high throughput ({Flow Bytes/s:.0f} bytes/sec) over a short-lived flow"
+
+  - id: R_DOS_02
+    class: DoS_Attack
+    description: "Abnormally large forward packet payloads"
+    condition: "features['Fwd Packet Length Max'] > 1000"
+    weight: 0.2
+    evidence_text: "unusually large packet payloads (max {Fwd Packet Length Max:.0f} bytes)"
+
+  - id: R_DOS_03
+    class: DoS_Attack
+    description: "High packet rate with PSH flag set, consistent with flooding payload-bearing packets"
+    condition: "features['Flow Packets/s'] > 2000 and features['PSH Flag Count'] >= 1"
+    weight: 0.25
+    evidence_text: "a high packet rate ({Flow Packets/s:.0f}/sec) combined with active PSH-flagged packets"
+
+  - id: R_DOS_04
+    class: "DoS Hulk"
+    description: "High byte throughput sustained over a short flow"
+    condition: "features['Flow Bytes/s'] > 100000 and features['Flow Duration'] < 5000000"
+    weight: 0.3
+    evidence_text: "sustained high throughput ({Flow Bytes/s:.0f} bytes/sec) over a short-lived flow"
+
+  - id: R_DOS_05
+    class: "DoS Hulk"
+    description: "Very high packet rate with repeated small requests"
+    condition: "features['Flow Packets/s'] > 3000 and features['Fwd Packet Length Min'] < 5"
+    weight: 0.3
+    evidence_text: "a very high request rate ({Flow Packets/s:.0f}/sec) made up of minimal-size packets"
+
+  - id: R_DOS_06
+    class: "DoS Hulk"
+    description: "Repeated near-identical requests to same target in monitoring window (requires monitoring-layer aggregation)"
+    condition: "context is not None and context.get('flows_to_same_dst_in_window', 0) > 100"
+    weight: 0.3
+    evidence_text: "{flows_to_same_dst_in_window} near-identical flows to the same destination within the monitoring window"
