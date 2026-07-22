@@ -1,25 +1,5 @@
 # NS-XIDS — Neuro-Symbolic Explainable Intrusion Detection System
 
-## Current status
-
-| Component | Status |
-|---|---|
-| Dataset + training pipeline (leakage-fixed) | ✅ Done — `training/train_ann_model.ipynb` |
-| ANN model, scaler, encoder, feature list, IQR bounds, SHAP background | ✅ **Locked** — `models/` |
-| Reference prediction pipeline (bug-fixed) | ✅ Done — `backend/ml/predict.py` |
-| Symbolic reasoning engine | ✅ Done — `backend/symbolic_reasoning/rule_engine.py` + `rules/*.yaml` |
-| Risk scoring | ✅ Done — `backend/risk_scoring/risk_engine.py` |
-| Explainability formatter (incl. conflicting-rules bug fix) | ✅ Done — `backend/explainability/explainer.py` |
-| FastAPI backend + SQLite DB | ✅ Done — `backend/api/main.py`, `backend/database/` |
-| React dashboard (6 pages) | ✅ Done — `frontend/` |
-| Feature extraction (pcap -> 35-feature vector) | ✅ Done, tested end-to-end — `backend/feature_extraction/` |
-| Live monitoring (`/api/monitoring/start` -> real capture thread) | ✅ Done, verified on real traffic — `backend/monitoring/capture_manager.py` |
-| **CSV upload -> dashboard results** | ✅ Done — `POST /api/predict/csv`, Test Data page |
-| **One-click "generate all severity levels"** | ✅ Done — `POST /api/demo/generate`, Test Data page |
-| Demo/test tooling (CLI) | ✅ Done — `scripts/generate_demo_traffic.py`, `scripts/replay_pcap_to_api.py`, `scripts/find_events.py` |
-| End-to-end tests | ✅ 8/8 passing — `tests/test_pipeline_e2e.py` |
-| Setup/run scripts | ✅ Done — `run_backend.sh`, `run_frontend.sh`, `SETUP.md` |
-
 ## Project structure
 
 ```
@@ -39,7 +19,6 @@ ns-xids/
 ├── training/                train_ann_model.ipynb (offline training path)
 ├── rules/                   YAML/JSON symbolic rule definitions
 ├── tests/                   unit tests per module
-└── documentation/           report, architecture docs, results
 ```
 
 Each subfolder has its own `README.md` explaining what belongs there and current status.
