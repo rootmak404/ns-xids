@@ -59,3 +59,11 @@ python scripts/replay_pcap_to_api.py path/to/capture.pcap
 Then in the dashboard: Live Monitoring → mode "Live capture" → enter your
 interface name (`en0` on macOS, `eth0` on most Linux) → Start.
 
+## Project Architecture
+
+![System Architecture](docs/System%20Architecture.jpeg)
+
+## Dashboard
+
+![Dashboard](docs/Dashboard.png)
+
