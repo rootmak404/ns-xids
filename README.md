@@ -67,13 +67,3 @@ BENIGN predictions specifically (conflicting rules weren't being persisted
 or mentioned in the reasoning text). Both are now fixed — see
 `backend/explainability/explainer.py` and the `conflicting_rules_json`
 column in `backend/database/models.py`.
-
-## Next step
-
-The full pipeline is built, tested, and verified against real captured
-traffic end-to-end. What's left is validation/polish, not new components:
-1. Validate `backend/feature_extraction/flow.py`'s features against real
-   CICFlowMeter output on the same pcap, since it's a best-effort
-   reimplementation (see that file's docstring).
-2. Write up the report sections (problem statement through evaluation —
-   happy to help draft these next).
